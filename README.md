@@ -1,2 +1,20 @@
-# tarp
-A package manager for Slackware that does everything.
+# tarp - *tar* *p*ackage manager
+
+A package manager for Slackware that does everything, including:
+* installing local packages
+* listing local packages
+* installing remote packages
+* installing SlackBuilds
+* automatically installing dependencies for packages and SlackBuilds
+* supporting multiple repos at once
+
+# FAQ
+
+## Why should you use tarp over other tools like slpkg?
+tarp supports searching and installing packages and SlackBuilds from multiple repos, unlike [slpkg](https://gitlab.com/dslackw/slpkg/-/issues?sort=created_date&state=closed&first_page_size=20&show=eyJpaWQiOiIxOTgiLCJmdWxsX3BhdGgiOiJkc2xhY2t3L3NscGtnIiwiaWQiOjE3NTUwNDk4Nn0%3D).
+
+## Why is it written in D instead of a more commonly used language like C or Bash?
+D handles strings well, has pleasant syntax, and is fast.
+
+## Why is it called tarp?
+tarp stands for *tar* *p*ackage manager, referencing Slackware packages, which are tar-based. (.tgz, .txz)
