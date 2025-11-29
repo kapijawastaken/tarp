@@ -1,5 +1,4 @@
 # tarp - **tar** **p**ackage manager
-
 A package manager for Slackware that does everything, including:
 * installing local packages
 * listing local packages
@@ -7,6 +6,13 @@ A package manager for Slackware that does everything, including:
 * installing SlackBuilds
 * automatically installing dependencies for packages and SlackBuilds
 * supporting multiple repos at once
+
+# Build instructions
+```
+git clone https://github.com/kapijawastaken/tarp
+cd tarp
+make
+```
 
 # FAQ
 
