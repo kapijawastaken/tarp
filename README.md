@@ -1,4 +1,4 @@
-# tarp - *tar* *p*ackage manager
+# tarp - **tar** **p**ackage manager
 
 A package manager for Slackware that does everything, including:
 * installing local packages
@@ -17,4 +17,4 @@ tarp supports searching and installing packages and SlackBuilds from multiple re
 D handles strings well, has pleasant syntax, and is fast.
 
 ## Why is it called tarp?
-tarp stands for *tar* *p*ackage manager, referencing Slackware packages, which are tar-based. (.tgz, .txz)
+tarp stands for **tar** **p**ackage manager, referencing Slackware packages, which are tar-based. (.tgz, .txz)
