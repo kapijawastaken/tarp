@@ -1,6 +1,5 @@
 module commands.list;
 
-import std.stdio;
 import std.file;
 import std.array;
 
