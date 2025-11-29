@@ -1,4 +1,4 @@
 tarp:
-	gdc -O -o tarp src/main.d src/commands/list.d src/commands/installpkg.d src/commands/removepkg.d
+	gdc -static-libphobos -O -o tarp src/main.d src/commands/*.d
 clean:
 	rm tarp

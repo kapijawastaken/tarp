@@ -2,10 +2,11 @@ module commands.installpkg;
 
 import std.algorithm;
 import std.process;
+import commands.help;
 
 string installpkg(string[] args) {
   if (args.length == 0) {
-    return "Usage: tarp install <package>\n";
+    return help();
   }
     
   string packageFile = args[0];
