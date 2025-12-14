@@ -2,6 +2,7 @@ module main;
 
 import std.stdio;
 import commands.list;
+import commands.count;
 import commands.installpkg;
 import commands.removepkg;
 import commands.help;
@@ -15,12 +16,17 @@ int main(string[] args)  {
 
     switch (args[1]) {
       default:  // anything that is one word or more and isnt a command
-        write(help());
+        write(help);
         return 1;
 
       case "list":
       case "l":
-        write(list());
+        write(list);
+        break;
+
+      case "count":
+      case "c":
+        writeln(count);
         break;
 
       case "install":
@@ -34,7 +40,7 @@ int main(string[] args)  {
         break;
     
       case "--help":
-        write(help());
+        write(help);
         break;
     }
   }
