@@ -1,8 +1,9 @@
 # tarp - **tar** **p**ackage manager
-A package manager for Slackware that does everything, including:
+A package manager for Slackware that does everything (in the future), including:
 * installing local packages (done)
 * listing local packages (done)
-* removing packages (halfway done)
+* counting local packages (done)
+* removing packages (done)
 * installing remote packages (to do)
 * installing SlackBuilds (to do)
 * automatically installing dependencies for packages and SlackBuilds (to do)
@@ -13,6 +14,7 @@ A package manager for Slackware that does everything, including:
 git clone https://github.com/kapijawastaken/tarp
 cd tarp
 make
+sudo make install
 ```
 
 # FAQ
@@ -21,7 +23,7 @@ make
 tarp supports searching and installing packages and SlackBuilds from multiple repos, unlike [slpkg](https://gitlab.com/dslackw/slpkg/-/issues?sort=created_date&state=closed&first_page_size=20&show=eyJpaWQiOiIxOTgiLCJmdWxsX3BhdGgiOiJkc2xhY2t3L3NscGtnIiwiaWQiOjE3NTUwNDk4Nn0%3D).
 
 ## Why is it written in D instead of a more commonly used language like C or Bash?
-D handles strings well, has pleasant syntax, and is fast.
+D handles strings well, has pleasant syntax, and is fast enough.
 
 ## Why is it called tarp?
 tarp stands for **tar** **p**ackage manager, referencing Slackware packages, which are tar-based. (.tgz, .txz)
