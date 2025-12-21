@@ -7,7 +7,7 @@ A package manager for Slackware that does everything (in the future), including:
 * installing remote packages (to do)
 * installing SlackBuilds (to do)
 * automatically installing dependencies for packages and SlackBuilds (to do)
-* supporting multiple repos at once (to do)
+* supporting multiple repos at once (done)
 
 # Build instructions
 ```

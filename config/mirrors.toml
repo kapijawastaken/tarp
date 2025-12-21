@@ -1,5 +1,6 @@
 # This is the file you can edit to select the mirrors you want to use in tarp.
 # [Packages] is for native Slackware packages including third-party repos, [SBo] for SlackBuilds.
+# DON'T CHANGE THEIR ORDER. It won't work otherwise.
 
 [Packages]
 # Local CDROM/DVD drive

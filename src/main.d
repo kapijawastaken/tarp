@@ -6,9 +6,12 @@ import commands.count;
 import commands.installpkg;
 import commands.removepkg;
 import commands.help;
+import commands.mirrors;
 
 int main(string[] args)  {
   
+  writeln(mirrors("sbo"));  // setup
+
   if (args.length < 2) {  // when the command is missing
     write(help());
     return 1;
