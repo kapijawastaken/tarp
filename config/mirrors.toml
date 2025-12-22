@@ -294,22 +294,22 @@
 # http://spout.ussg.indiana.edu/linux/slackware/slackware64-current/
 
 # alienbob 15.0
-# https://slackware.nl/people/alien/sbrepos/15.0/x86_64
+# https://slackware.nl/people/alien/sbrepos/15.0/x86_64/
 
 # restricted 15.0
-# https://slackware.nl/people/alien/restricted_sbrepos/15.0/x86_64
+# https://slackware.nl/people/alien/restricted_sbrepos/15.0/x86_64/
 
 # multilib 15.0
-# https://slackware.nl/people/alien/multilib/15.0
+# https://slackware.nl/people/alien/multilib/15.0/
 
 # alienbob current
-# https://slackware.nl/people/alien/sbrepos/current/x86_64
+# https://slackware.nl/people/alien/sbrepos/current/x86_64/
 
 # restricted current
-# https://slackware.nl/people/alien/restricted_sbrepos/current/x86_64
+# https://slackware.nl/people/alien/restricted_sbrepos/current/x86_64/
 
 # multilib current
-# https://slackware.nl/people/alien/multilib/current
+# https://slackware.nl/people/alien/multilib/current/
 
 # testing current
 # https://mirrors.slackware.com/slackware/slackware64-current/testing/

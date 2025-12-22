@@ -14,7 +14,8 @@ string update() {
   foreach (r; slackwaremirrors) {
     if (!exists("/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5")) {
       mkdirRecurse("/tmp/tarp/" ~ tmpdir(r));
-      download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5"); 
+      download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5");
+      writeln("Downloaded checksum for mirror " ~ r ~ ".");
     } else {
       string checksum = get(r ~ "CHECKSUMS.md5").idup;
       if (cmp(checksum, readText("/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5")) == 0) {
@@ -22,8 +23,8 @@ string update() {
       }
       else {
         download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5");
-        writeln("Updated checksum.");
-      }
+        writeln("Updated checksum for mirror " ~ r ~ ".");
+       }
     }
   }
   return "Update finished.";
