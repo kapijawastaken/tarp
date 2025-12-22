@@ -8,7 +8,7 @@ install, i <package>   Installs a local or remote package
 list, l                Lists installed packages
 count, c               Shows the amount of installed packages
 remove, r <package>    Removes a package
---help                 Show this page
+help, h, --help, -h    Show this page
 EOS"
 ;
 return help;

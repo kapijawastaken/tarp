@@ -43,6 +43,9 @@ int main(string[] args)  {
         break;
     
       case "--help":
+      case "h":
+      case "help":
+      case "-h":
         write(help);
         break;
     }
