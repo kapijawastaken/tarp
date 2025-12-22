@@ -3,18 +3,19 @@ module commands.installpkg;
 import std.algorithm;
 import std.process;
 import commands.help;
+import commands.downloadpkg;
 
 string installpkg(string[] args) {
   if (args.length == 0) {
-    return help();
+    return help;
   }
     
-  string packageFile = args[0];
-    
-  if (packageFile.endsWith(".tgz") || packageFile.endsWith(".txz") || packageFile.endsWith(".tlz") || packageFile.endsWith(".tbz")) {
-    return executeShell("installpkg " ~ packageFile).output;
+  if (args[0].endsWith(".tgz") || args[0].endsWith(".txz") || args[0].endsWith(".tlz") || args[0].endsWith(".tbz")) {
+    return executeShell("installpkg " ~ args[0]).output;
   } else {
-    return "Installing package from repository: " ~ packageFile ~ "\n";
+    return "Installing package from repository: " ~ args[0] ~ "\n";
+    downloadpkg(args[]);
+    return executeShell("installpkg " ~ args[0]).output;    
   }
 
 }

@@ -4,6 +4,7 @@ A package manager for Slackware that does everything (in the future), including:
 * listing local packages (done)
 * counting local packages (done)
 * removing packages (done)
+* updating the checksum (done)
 * installing remote packages (to do)
 * installing SlackBuilds (to do)
 * automatically installing dependencies for packages and SlackBuilds (to do)

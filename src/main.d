@@ -5,13 +5,14 @@ import commands.list;
 import commands.count;
 import commands.installpkg;
 import commands.removepkg;
+import commands.downloadpkg;
+import commands.update;
+import commands.updategpg;
 import commands.help;
-import commands.mirrors;
+
 
 int main(string[] args)  {
   
-  writeln(mirrors("sbo"));  // setup
-
   if (args.length < 2) {  // when the command is missing
     write(help());
     return 1;
@@ -42,6 +43,16 @@ int main(string[] args)  {
         write(removepkg(args[2..$]));
         break;
     
+      case "update":
+      case "u":
+        writeln(update);
+        break;
+
+      case "updategpg":
+      case "ug":
+        writeln(updategpg);
+        break;
+
       case "--help":
       case "h":
       case "help":

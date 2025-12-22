@@ -8,6 +8,8 @@ install, i <package>   Installs a local or remote package
 list, l                Lists installed packages
 count, c               Shows the amount of installed packages
 remove, r <package>    Removes a package
+update, u              Updates the package list
+updategpg, ug          Updates the GPG keys
 help, h, --help, -h    Show this page
 EOS"
 ;
