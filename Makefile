@@ -4,5 +4,5 @@ clean:
 	rm tarp
 install:
 	mv tarp /usr/local/bin/
-	mkdir /etc/tarp
+	mkdir -p /etc/tarp
 	cp config/mirrors.toml /etc/tarp/

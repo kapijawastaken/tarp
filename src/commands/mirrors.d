@@ -13,6 +13,7 @@ string[] mirrors(string arg) {
   long slackwarepos = mirrors.countUntil("[Packages]");
   long sbopos = mirrors.countUntil("[SBo]");  
   
+  
   foreach (line; mirrors[0 .. (sbopos == -1 ? $ : sbopos)]) {
     if (!line.empty && !line.startsWith("#") && !line.startsWith("["))
       slackwaremirrors ~= line;
@@ -26,16 +27,18 @@ string[] mirrors(string arg) {
   
   
   if (sbopos != -1) {
-    foreach (line; mirrors[sbopos .. $]) {
+    foreach (line; mirrors[sbopos .. (sbopos < slackwarepos ? slackwarepos : $)]) {
       if (!line.empty && !line.startsWith("#") && !line.startsWith("["))
         sbomirrors ~= line;
     }
   }
   
-  if (arg == "slackware")
-    return slackwaremirrors;
-  else if (arg == "sbo")
-    return sbomirrors;
-  else
-    return [];
+  switch (arg) {
+    default:
+      return [];
+    case "sbo":
+      return sbomirrors;
+    case "slackware":
+      return slackwaremirrors;
+  }
 }
