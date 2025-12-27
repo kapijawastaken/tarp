@@ -1,5 +1,6 @@
 module commands.installpkg;
 
+import std.stdio;
 import std.algorithm;
 import std.process;
 import commands.help;
