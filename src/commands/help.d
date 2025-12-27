@@ -1,17 +1,15 @@
 module commands.help;
 
-string help() {
-string help = q"EOS
-Usage: tarp <command>
-Available commands:
-install, i <package>   Installs a local or remote package
-list, l                Lists installed packages
-count, c               Shows the amount of installed packages
-remove, r <package>    Removes a package
-update, u              Updates the package list
-updategpg, ug          Updates the GPG keys
-help, h, --help, -h    Show this page
-EOS"
-;
-return help;
+string help()
+{
+    string help = "Usage: tarp <command>\n" ~
+                  "Available commands:\n" ~
+                  "install, i <package>   Installs a local or remote package\n" ~
+                  "list, l                Lists installed packages\n" ~
+                  "count, c               Shows the amount of installed packages\n" ~
+                  "remove, r <package>    Removes a package\n" ~
+                  "update, u              Updates the package list\n" ~
+                  "updategpg, ug          Updates the GPG keys\n" ~
+                  "help, h, --help, -h    Show this page";
+    return help;
 }

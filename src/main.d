@@ -11,56 +11,58 @@ import commands.updategpg;
 import commands.help;
 
 
-int main(string[] args)  {
-  
-  if (args.length < 2) {  // when the command is missing
-    write(help());
-    return 1;
-  } else {
-
-    switch (args[1]) {
-      default:  // anything that is one word or more and isnt a command
+int main(string[] args)
+{
+    if (args.length < 2)  // when the command is missing
+    {
         write(help);
         return 1;
-
-      case "list":
-      case "l":
-        write(list);
-        break;
-
-      case "count":
-      case "c":
-        writeln(count);
-        break;
-
-      case "install":
-      case "i":
-        write(installpkg(args[2..$]));
-        break;
-    
-      case "remove":
-      case "r":
-        write(removepkg(args[2..$]));
-        break;
-    
-      case "update":
-      case "u":
-        writeln(update);
-        break;
-
-      case "updategpg":
-      case "ug":
-        writeln(updategpg);
-        break;
-
-      case "--help":
-      case "h":
-      case "help":
-      case "-h":
-        write(help);
-        break;
     }
-  }
-  
-  return 0;
+    else
+    {
+        switch (args[1])  // anything that is one word or more and isnt a command
+        {
+            default: 
+                write(help);
+                return 1;
+
+            case "list":
+            case "l":
+                write(list);
+                break;
+
+            case "count":
+            case "c":
+                writeln(count);
+                break;
+
+            case "install":
+            case "i":
+                write(installpkg(args[2..$]));
+                break;
+
+            case "remove":
+            case "r":
+                write(removepkg(args[2..$]));
+                break;
+
+            case "update":
+            case "u":
+                writeln(update);
+                break;
+
+            case "updategpg":
+            case "ug":
+                writeln(updategpg);
+                break;
+
+            case "--help":
+            case "h":
+            case "help":
+            case "-h":
+                write(help);
+                break;
+        }
+    }
+    return 0;
 }
