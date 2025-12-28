@@ -2,14 +2,16 @@ module commands.list;
 
 import std.file;
 import std.array;
+import std.algorithm;
 
 string list()
 {
-    string list;
+    string[] pkgs;
    
     foreach (string name; dirEntries("/var/lib/pkgtools/packages", SpanMode.shallow))
     {
-        list ~= name.replace("/var/lib/pkgtools/packages/", "") ~ "\n";
+        pkgs ~= name.replace("/var/lib/pkgtools/packages/", "") ~ "\n";
     }
-    return list;
+    sort(pkgs);
+    return pkgs.join;
 }

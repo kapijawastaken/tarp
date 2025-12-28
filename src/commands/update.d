@@ -21,7 +21,7 @@ string update()
             {
                 mkdirRecurse("/tmp/tarp/" ~ tmpdir(r));
                 download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5");
-                writeln("Downloaded checksum for mirror " ~ r ~ ".");
+                writeln("Downloaded checksum for mirror " ~ r ~ " to /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.");
             } 
             else 
             {
@@ -34,7 +34,7 @@ string update()
                 else 
                 {
                     download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5");
-                    writeln("Updated checksum for mirror " ~ r ~ ".");
+                    writeln("Updated checksum for mirror " ~ r ~ " at /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.");
                 }
 
             }
