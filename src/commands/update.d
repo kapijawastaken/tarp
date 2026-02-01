@@ -42,10 +42,7 @@ string update()
         }
     }
     if (slackwaremirrors.empty)
-    {
-        return "You don't have any mirrors set!\n" ~
-               "Go and do that by uncommenting one or more mirrors in /etc/tarp/mirrors.toml.";
-    }
+        return "You don't have any mirrors set!\nGo and do that by uncommenting one or more mirrors in /etc/tarp/mirrors.toml.";
     else
         return "Update finished.";
 }
