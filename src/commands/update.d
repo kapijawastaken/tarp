@@ -29,7 +29,8 @@ string update()
 
                 if (cmp(checksum, readText("/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5")) == 0) 
                 {
-                    writeln("Nothing to update for mirror " ~ r ~ ".");
+                    string nothing = "Nothing to update for mirror " ~ r ~ ".";
+                    return nothing;
                 }
                 else 
                 {
@@ -40,7 +41,13 @@ string update()
             }
         }
     }
-    return "Update finished.";
+    if (slackwaremirrors.empty)
+    {
+        return "You don't have any mirrors set!\n" ~
+               "Go and do that by uncommenting one or more mirrors in /etc/tarp/mirrors.toml.";
+    }
+    else
+        return "Update finished.";
 }
 
 
