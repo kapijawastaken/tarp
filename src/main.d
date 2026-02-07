@@ -62,6 +62,12 @@ int main(string[] args)
             case "-h":
                 write(help);
                 break;
+            case "-v":
+            case "--version":
+            case "v":
+            case "version":
+                writeln("I don't really do version numbers yet.");
+                break;
         }
     }
     return 0;
