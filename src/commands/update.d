@@ -13,7 +13,7 @@ import std.algorithm.comparison;
 
 string update() 
 {
-    foreach (r; slackwaremirrors) 
+    foreach (r; slackwaremirrors)
     {
         if (r.startsWith("https://") || r.startsWith("ftp://"))
         {
@@ -21,13 +21,17 @@ string update()
             {
                 mkdirRecurse("/tmp/tarp/" ~ tmpdir(r));
                 download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5");
-                writeln("Downloaded checksum for mirror " ~ r ~ " to /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.");
-            } 
+                writeln("Downloaded checksums for mirror " ~ r ~ " to /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.");
+                download(r ~ "CHECKSUMS.md5.asc", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.asc");
+                writeln("Downloaded GPG signature for mirror " ~ r ~ " to /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.asc.");
+            }
             else 
             {
                 string checksum = get(r ~ "CHECKSUMS.md5").idup;
+                string signature = get(r ~ "CHECKSUMS.md5.asc").idup;
 
-                if (cmp(checksum, readText("/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5")) == 0) 
+                if (cmp(checksum, readText("/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5")) == 0 && 
+                    cmp(signature, readText("/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.asc")) == 0) 
                 {
                     string nothing = "Nothing to update for mirror " ~ r ~ ".";
                     return nothing;
@@ -35,9 +39,10 @@ string update()
                 else 
                 {
                     download(r ~ "CHECKSUMS.md5", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5");
-                    writeln("Updated checksum for mirror " ~ r ~ " at /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.");
+                    writeln("Updated checksums for mirror " ~ r ~ " at /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.");
+                    download(r ~ "CHECKSUMS.md5.asc", "/tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.asc");
+                    writeln("Updated GPG signature for mirror " ~ r ~ " at /tmp/tarp/" ~ tmpdir(r) ~ "/CHECKSUMS.md5.asc.");
                 }
-
             }
         }
     }
