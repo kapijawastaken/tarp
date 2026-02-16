@@ -1,8 +1,12 @@
 package commands
 
-import "os"
+import (
+	"os"
+	"strings"
+	"slices"
+)
 
-func count() int {
+func list() string {
 	file, err := os.Open("/var/lib/pkgtools/packages/")
 	if err != nil {
 		panic(err)
@@ -12,5 +16,7 @@ func count() int {
 		panic(err)
 	}
 	file.Close()
-	return len(list)
+	slices.Sort(list)
+	output := strings.Join(list, "\n")
+	return output
 }
