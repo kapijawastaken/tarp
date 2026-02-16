@@ -1,11 +1,11 @@
-package main
+package commands
 
 import (
 	"fmt"
 	"os"
 )
 
-func main() {
+func count() {
 	file, err := os.Open("/var/lib/pkgtools/packages/")
 	if err != nil {
 		panic(err)
