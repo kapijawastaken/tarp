@@ -12,7 +12,7 @@ A package manager for Slackware that does everything (in the future), including:
 * installing SlackBuilds (to do)
 * automatically installing dependencies for packages and SlackBuilds (to do)
 * supporting multiple repos at once (done)
-* c rewrite (to do, priority)
+* go rewrite (to do, priority)
 # Requirements:
 * gdc
 * libcurl
