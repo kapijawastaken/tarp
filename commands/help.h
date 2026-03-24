@@ -1,5 +1,5 @@
-char[] help() {
-  char[] help = "Usage: tarp <command>\n" 
+char *help() {
+  char *help = "Usage: tarp <command>\n" 
                 "Available commands:\n" 
                 "install, i <package>   Installs a local or remote package\n" 
                 "list, l                Lists installed packages\n" 
