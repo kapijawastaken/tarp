@@ -7,6 +7,6 @@ char *help() {
                 "remove, r <package>    Removes a package\n" 
                 "update, u              Updates the package list\n" 
                 "updategpg, ug          Updates the GPG keys\n" 
-                "help, h, --help, -h    Shows this page\n";
+                "help, h                Shows this page\n";
   return help;
 }
