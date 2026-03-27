@@ -1,5 +1,3 @@
-#include <dirent.h>
-#include <stdlib.h>
 int count() {
   struct dirent **entries;
   int n = scandir("/var/lib/pkgtools/packages", &entries, NULL, NULL);

@@ -1,5 +1,5 @@
 char *help() {
-  char *help = "Usage: tarp <command>\n" 
+  char *helptext = "Usage: tarp <command>\n" 
                 "Available commands:\n" 
                 "install, i <package>   Installs a local or remote package\n" 
                 "list, l                Lists installed packages\n" 
@@ -8,5 +8,5 @@ char *help() {
                 "update, u              Updates the package list\n" 
                 "updategpg, ug          Updates the GPG keys\n" 
                 "help, h                Shows this page\n";
-  return help;
+  return helptext;
 }
