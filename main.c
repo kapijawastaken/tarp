@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
+#include <ctype.h>
 #include "commands/help.h" // dont move this one.
 #include "commands/removepkg.h"
 #include "commands/list.h"
