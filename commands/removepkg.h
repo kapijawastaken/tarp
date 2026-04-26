@@ -11,15 +11,6 @@ char *removepkg(int argc, char **argv) {
 
     for (int i = 0; i < argc; i++) {
       char *tmp;
-
-      for (char *j = argv[i]; *j != '\0'; j++) {
-	if (isalpha(*j) == 0) {
-	  char *valid;
-	  asprintf(&valid, "%s\n", "Invalid input, only ASCII characters are accepted.");
-	  return valid;
-	}
-      }
-      
       asprintf(&tmp, "%s %s", cmd, argv[i]);
       free(cmd);
       cmd = tmp;
