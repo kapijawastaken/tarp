@@ -14,6 +14,20 @@ A package manager for Slackware that does everything (in the future), including:
 * supporting multiple repos at once (done)
 * c rewrite (to do, priority)
 
+# (not very) FAQ
+
+## What is tarp trying to do?
+tarp is trying to be a replacement for slackpkg and whatever else you need bolted on top to install packages and SlackBuilds. It is NOT trying to be a replacement for pkgtool, and even calls it.
+
+## Why should you use tarp over other tools like slpkg or slackpkgplus?
+tarp supports searching, downloading and installing packages AND SlackBuilds from multiple repos, unlike other tools.
+
+## Why is it called tarp?
+tarp stands for **tar** **p**ackage manager, referencing Slackware packages, which are tar-based. (.tgz, .txz)
+
+## What can this project be compared to?
+In a way, tarp is similar to AUR helpers like yay and paru, as it's a wrapper around the system package manager but also supports installing SlackBuilds, which are similar to PKGBUILDs.
+
 # Requirements:
 * gdc
 * libcurl
@@ -33,14 +47,3 @@ cd tarp
 make
 sudo make install
 ```
-
-# FAQ
-
-## Why should you use tarp over other tools like slpkg?
-tarp supports searching, downloading and installing packages AND SlackBuilds from multiple repos, unlike [slpkg](https://gitlab.com/dslackw/slpkg/-/issues?sort=created_date&state=closed&first_page_size=20&show=eyJpaWQiOiIxOTgiLCJmdWxsX3BhdGgiOiJkc2xhY2t3L3NscGtnIiwiaWQiOjE3NTUwNDk4Nn0%3D).
-
-## Why is it called tarp?
-tarp stands for **tar** **p**ackage manager, referencing Slackware packages, which are tar-based. (.tgz, .txz)
-
-## What can this project be compared to?
-In a way, tarp is similar to AUR helpers like yay and paru, as it's a wrapper around the system package manager but also supports installing SlackBuilds, which are similar to PKGBUILDs.
