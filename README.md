@@ -5,19 +5,28 @@ A package manager for Slackware that does everything (in the future), including:
 * listing local packages (done)
 * counting local packages (done)
 * removing packages (done)
-* updating the checksums (done)
-* updating the gpg signature (done)
+* updating the checksums (done for d)
+* updating the gpg signature (done for d)
 * updating the gpg key (to do)
 * installing remote packages (to do)
 * installing SlackBuilds (to do)
 * automatically installing dependencies for packages and SlackBuilds (to do)
 * supporting multiple repos at once (done)
 * c rewrite (to do, priority)
+
 # Requirements:
 * gdc
 * libcurl
 
-# Build instructions
+# Build instructions for the new C version (recommended)
+```
+git clone https://github.com/kapijawastaken/tarp
+cd tarp
+make c
+sudo make install
+```
+
+# Build instructions for the old D version
 ```
 git clone https://github.com/kapijawastaken/tarp
 cd tarp
