@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include "commands/help.h" // dont move this one.
 #include "commands/removepkg.h"
+#include "commands/installpkg.h"
 #include "commands/list.h"
 #include "commands/count.h"
 
@@ -19,6 +20,11 @@ int main(int argc, char **argv) {
   }
   else if (strcmp(argv[1], "r") == 0 || strcmp(argv[1], "remove") == 0) {
     char *bye = removepkg(argc - 2, argv + 2);
+    printf("%s", bye);
+    free(bye);
+  }
+  else if (strcmp(argv[1], "i") == 0 || strcmp(argv[1], "install") == 0) {
+    char *bye = installpkg(argc - 2, argv + 2);
     printf("%s", bye);
     free(bye);
   }
