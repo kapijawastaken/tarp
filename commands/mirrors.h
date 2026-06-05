@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
 char **pkgmirrors() {
   FILE *fp = fopen("/etc/tarp/mirrors", "r");
   char *line = NULL;

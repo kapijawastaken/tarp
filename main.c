@@ -9,6 +9,7 @@
 #include "commands/installpkg.h"
 #include "commands/list.h"
 #include "commands/count.h"
+#include "commands/mirrors.h"
 
 int main(int argc, char **argv) {
   if (argc <= 1) {
