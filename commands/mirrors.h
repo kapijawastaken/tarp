@@ -30,13 +30,13 @@ char **sbomirrors() {
     if (strcmp(line, "[SBo]\n") == 0) { break; }
   }
   while (getline(&line, &limit, fp) != -1) { // this keeps going from where the one above stopped
-      if (line[0] != '#' && line[0] != '\n') {
-	tmp = realloc(mirrors, sizeof(char*) * (count + 1));
-	if (tmp == NULL) { fclose(fp); free(line); return mirrors; }
-	mirrors = tmp;
-	mirrors[count++] = strdup(line);
-      }
+    if (line[0] != '#' && line[0] != '\n') {
+      tmp = realloc(mirrors, sizeof(char*) * (count + 1));
+      if (tmp == NULL) { fclose(fp); free(line); return mirrors; }
+      mirrors = tmp;
+      mirrors[count++] = strdup(line);
     }
+  }
   fclose(fp);
   free(line);
   return mirrors;
