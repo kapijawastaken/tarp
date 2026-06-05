@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 char **pkgmirrors() {
-  FILE *fp = fopen("/etc/tarp/mirrors.toml", "r"); // TODO: GET RID OF .toml EXTENSION
+  FILE *fp = fopen("/etc/tarp/mirrors", "r");
   char *line = NULL;
   size_t limit = 0; // getline() allocates this for us
   char **mirrors = NULL, **tmp = NULL;
@@ -25,7 +25,7 @@ char **pkgmirrors() {
 }
 
 char **sbomirrors() {
-  FILE *fp = fopen("/etc/tarp/mirrors.toml", "r"); // TODO: GET RID OF .toml EXTENSION
+  FILE *fp = fopen("/etc/tarp/mirrors", "r");
   char *line = NULL;
   size_t limit = 0; // getline() allocates this for us
   char **mirrors = NULL, **tmp = NULL;

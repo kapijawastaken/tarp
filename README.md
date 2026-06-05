@@ -40,7 +40,7 @@ make c
 sudo make install
 ```
 
-# Build instructions for the old D version
+# Build instructions for the old D version (abandoned, perhaps broken)
 ```
 git clone https://github.com/kapijawastaken/tarp
 cd tarp
