@@ -4,12 +4,16 @@
 #include <string.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <unistd.h>
+#include <curl/curl.h>
 #include "commands/help.h" // dont move this one.
+#include "commands/fnv1a.h" // not this one either.
 #include "commands/removepkg.h"
 #include "commands/installpkg.h"
 #include "commands/list.h"
 #include "commands/count.h"
 #include "commands/mirrors.h"
+#include "commands/update.h"
 
 int main(int argc, char **argv) {
   if (argc <= 1) {

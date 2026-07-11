@@ -9,7 +9,7 @@ char **pkgmirrors() {
     if (line[0] != '#' &&
 	line[0] != '\n' &&
 	strcmp(line, "[Packages]\n") != 0) {
-      tmp = realloc(mirrors, sizeof(char*) * (count + 1));
+      tmp = realloc(mirrors, sizeof(char*) * (count + 2));
       if (tmp == NULL) { fclose(fp); free(line); return mirrors; }
       mirrors = tmp;
       mirrors[count++] = strdup(line);
@@ -17,6 +17,9 @@ char **pkgmirrors() {
   }
   fclose(fp);
   free(line);
+  if (mirrors != NULL) {
+    mirrors[count] = NULL;
+  }
   return mirrors;
 }
 
@@ -31,7 +34,7 @@ char **sbomirrors() {
   }
   while (getline(&line, &limit, fp) != -1) { // this keeps going from where the one above stopped
     if (line[0] != '#' && line[0] != '\n') {
-      tmp = realloc(mirrors, sizeof(char*) * (count + 1));
+      tmp = realloc(mirrors, sizeof(char*) * (count + 2));
       if (tmp == NULL) { fclose(fp); free(line); return mirrors; }
       mirrors = tmp;
       mirrors[count++] = strdup(line);
@@ -39,6 +42,9 @@ char **sbomirrors() {
   }
   fclose(fp);
   free(line);
+  if (mirrors != NULL) {
+    mirrors[count] = NULL;
+  }  
   return mirrors;
 }
 
