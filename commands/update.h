@@ -11,7 +11,7 @@ char *update() {
     if (strncmp(mirrors[i], "https://", 8) != 0 &&
         strncmp(mirrors[i], "http://", 7) != 0 &&
 	strncmp(mirrors[i], "ftp://", 6) != 0) {
-      return NULL;
+      return "This is a local repo, running tarp update is unneccessary.";
     }
 
     asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mirrors[i]));
@@ -24,7 +24,7 @@ char *update() {
 }
 
 char *tmpdir(char *str) {
-  static char output[19];
+  static char output[19]; // "/tmp/tarp/" (10) + 8 hex chars + null = 19
   unsigned int h = fnv1a(str);
   snprintf(output, sizeof(output), "/tmp/tarp/%08x", h);
   return output;

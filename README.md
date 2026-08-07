@@ -13,6 +13,7 @@ A package manager for Slackware that does everything (in the future), including:
 * automatically installing dependencies for packages and SlackBuilds (to do)
 * supporting multiple repos at once (done)
 * c rewrite (to do, priority)
+* handling errors properly (stderr) (top priority rn)
 
 # (not very) FAQ
 
