@@ -1,4 +1,4 @@
-char *help() {
+int help() {
   char *helptext = "Usage: tarp <command>\n" 
                 "Available commands:\n" 
                 "install, i <package>   Installs a local or remote package\n" 
@@ -8,5 +8,6 @@ char *help() {
                 "update, u              Updates the package list\n" 
                 "updategpg, ug          Updates the GPG keys\n" 
                 "help, h                Shows this page\n";
-  return helptext;
+  printf("%s", helptext);
+  return 0;
 }

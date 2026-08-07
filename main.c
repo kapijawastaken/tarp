@@ -16,20 +16,21 @@
 #include "commands/update.h"
 
 int main(int argc, char **argv) {
-  int val; // return value
-
   if (argc <= 1) {
     printf("%s", help());
     return 1;
   }
+
   else if (strcmp(argv[1], "h") == 0 || strcmp(argv[1], "help") == 0) {
-    printf("%s", help());
+    return help();
   }
+  
   else if (strcmp(argv[1], "r") == 0 || strcmp(argv[1], "remove") == 0) {
     char *bye = removepkg(argc - 2, argv + 2);
     printf("%s", bye);
     free(bye);
   }
+
   else if (strcmp(argv[1], "i") == 0 || strcmp(argv[1], "install") == 0) {
     char *bye = installpkg(argc - 2, argv + 2);
     printf("%s", bye);
