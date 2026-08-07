@@ -1,3 +1,10 @@
+char *tmpdir(char *str) {
+  static char output[19]; // "/tmp/tarp/" (10) + 8 hex chars + null = 19
+  unsigned int h = fnv1a(str);
+  snprintf(output, sizeof(output), "/tmp/tarp/%08x", h);
+  return output;
+}
+
 int update() {
   char **mirrors = pkgmirrors();
   char *checksum_path = NULL, *signature_path = NULL;  
@@ -67,9 +74,3 @@ int update() {
   return 0;
 }
 
-char *tmpdir(char *str) {
-  static char output[19]; // "/tmp/tarp/" (10) + 8 hex chars + null = 19
-  unsigned int h = fnv1a(str);
-  snprintf(output, sizeof(output), "/tmp/tarp/%08x", h);
-  return output;
-}

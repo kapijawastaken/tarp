@@ -49,8 +49,6 @@ int main(int argc, char **argv) {
     return list();
   }
 
-    free(pkgs);
-  }
   else {
     printf("%s", help());
     return 1;
