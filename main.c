@@ -46,12 +46,8 @@ int main(int argc, char **argv) {
   }
   
   else if (strcmp(argv[1], "l") == 0 || strcmp(argv[1], "list") == 0) {
-    char **pkgs = list();
-
-    for (int i = 0; pkgs[i] != NULL; i++) {
-      printf("%s\n", pkgs[i]);
-      free(pkgs[i]);
-    }
+    return list();
+  }
 
     free(pkgs);
   }
