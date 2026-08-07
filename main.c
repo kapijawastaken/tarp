@@ -36,6 +36,11 @@ int main(int argc, char **argv) {
   else if (strcmp(argv[1], "c") == 0 || strcmp(argv[1], "count") == 0) {
     printf("%d\n", count());
   }
+
+  else if (strcmp(argv[1], "u") == 0 || strcmp(argv[1], "update") == 0) {
+    update();
+  }
+  
   else if (strcmp(argv[1], "l") == 0 || strcmp(argv[1], "list") == 0) {
     char **pkgs = list();
 
