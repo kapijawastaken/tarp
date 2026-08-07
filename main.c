@@ -16,6 +16,8 @@
 #include "commands/update.h"
 
 int main(int argc, char **argv) {
+  int val; // return value
+
   if (argc <= 1) {
     printf("%s", help());
     return 1;
@@ -33,12 +35,13 @@ int main(int argc, char **argv) {
     printf("%s", bye);
     free(bye);
   }
+
   else if (strcmp(argv[1], "c") == 0 || strcmp(argv[1], "count") == 0) {
-    printf("%d\n", count());
+    return count();
   }
 
   else if (strcmp(argv[1], "u") == 0 || strcmp(argv[1], "update") == 0) {
-    update();
+    return update();
   }
   
   else if (strcmp(argv[1], "l") == 0 || strcmp(argv[1], "list") == 0) {
