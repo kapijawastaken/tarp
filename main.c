@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <curl/curl.h>
+#include <sys/stat.h>
 #include "commands/help.h" // dont move this one.
 #include "commands/fnv1a.h" // not this one either.
 #include "commands/curleasy.h"

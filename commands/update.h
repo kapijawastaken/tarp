@@ -30,16 +30,26 @@ int update() {
     }
 
     asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mirrors[i]));
-    if (access(checksum_path, F_OK) == -1) {
+
+    if (access(tmpdir(mirrors[i]), W_OK) == -1) {
+      if (mkdir("/tmp/tarp", 0755) == -1) { // rwx,rx,rx
+	fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
+	return 1;
+      }
+      if (mkdir(tmpdir(mirrors[i]), 0755) == -1) { // rwx,rx,rx
+	fprintf(stderr, "Failed to create temporary directory %s!\n",
+		tmpdir(mirrors[i]));
+	return 1;
+      }
+    }
       char *checksum_url = NULL;
       asprintf(&checksum_url, "%s/CHECKSUMS.md5", mirrors[i]);
-      int choice;
       
     checksum:
       if (download(checksum_url, checksum_path) == 1) {
 	fprintf(stderr, "Checksum download of %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
-	choice = getchar();
+	int choice = getchar();
 	int c;
 	if (choice != '\n') {
 	  while ((c = getchar()) != '\n' && c != EOF); // only discard if there's more on the line
@@ -47,21 +57,30 @@ int update() {
 	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto checksum; }	
       }
       free(checksum_url);
-    }
-    free(checksum_path);
+      free(checksum_path);
 
 
     asprintf(&signature_path, "%s/CHECKSUMS.md5.asc", tmpdir(mirrors[i]));
-    if (access(signature_path, F_OK) == -1) {
+
+    if (access(tmpdir(mirrors[i]), W_OK) == -1) {
+      if (mkdir("/tmp/tarp", 0755) == -1) { // rwx,rx,rx
+	fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
+	return 1;
+      }
+      if (mkdir(tmpdir(mirrors[i]), 0755) == -1) { // rwx,rx,rx
+	fprintf(stderr, "Failed to create temporary directory %s!\n",
+		tmpdir(mirrors[i]));
+	return 1;
+      }
+    }
       char *signature_url = NULL;
       asprintf(&signature_url, "%s/CHECKSUMS.md5.asc", mirrors[i]);
-      int choice;
       
     signature:
       if (download(signature_url, signature_path) == 1) {
 	fprintf(stderr, "Signature download of %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
-	choice = getchar();
+	int choice = getchar();
 	int c;
 	if (choice != '\n') {
 	  while ((c = getchar()) != '\n' && c != EOF); // only discard if there's more on the line
@@ -69,10 +88,8 @@ int update() {
 	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto signature; }
       }
       free(signature_url);
+      free(signature_path);
     }
-    free(signature_path);
-
-  }
-  return 0;
+    return 0;
 }
 

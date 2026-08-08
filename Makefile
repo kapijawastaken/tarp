@@ -1,7 +1,7 @@
 tarp:
 	gdc -O -o tarp ./main.d ./commands/*.d
 c:
-	gcc -o tarp ./main.c -Wall
+	gcc -o tarp ./main.c -lcurl -Wall
 clean:
 	rm tarp
 install:
