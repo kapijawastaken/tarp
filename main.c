@@ -17,7 +17,7 @@
 
 int main(int argc, char **argv) {
   if (argc <= 1) {
-    printf("%s", help());
+    help();
     return 1;
   }
 
@@ -26,15 +26,11 @@ int main(int argc, char **argv) {
   }
   
   else if (strcmp(argv[1], "r") == 0 || strcmp(argv[1], "remove") == 0) {
-    char *bye = removepkg(argc - 2, argv + 2);
-    printf("%s", bye);
-    free(bye);
+    return removepkg(argc - 2, argv + 2);
   }
 
   else if (strcmp(argv[1], "i") == 0 || strcmp(argv[1], "install") == 0) {
-    char *bye = installpkg(argc - 2, argv + 2);
-    printf("%s", bye);
-    free(bye);
+    return installpkg(argc - 2, argv + 2);
   }
 
   else if (strcmp(argv[1], "c") == 0 || strcmp(argv[1], "count") == 0) {
@@ -50,9 +46,7 @@ int main(int argc, char **argv) {
   }
 
   else {
-    printf("%s", help());
+    help();
     return 1;
   }
-
-  return 0;
 }

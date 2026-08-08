@@ -1,13 +1,12 @@
-char *removepkg(int argc, char **argv) {
+int removepkg(int argc, char **argv) {
   if (argc <= 0) {
-    // main() frees this function, so we need it on the heap.
-    char *out;
-    asprintf(&out, "%s", help());
-    return out;
+    help();
+    return 1;
   }
+
   else {
-    char *cmd;
-    asprintf(&cmd, "removepkg");
+    char *cmd = strdup("removepkg"); /* this needs to be freed, and we cant
+					 free string literals. */
 
     for (int i = 0; i < argc; i++) {
       char *tmp;
@@ -15,22 +14,17 @@ char *removepkg(int argc, char **argv) {
       free(cmd);
       cmd = tmp;
     }
-    
-    char *result;
-    asprintf(&result, "%s", ""); // asprintf needs at least 2 args
-    int c;
+
     FILE *fp = popen(cmd, "r");
     free(cmd);
-    
-    while ((c = fgetc(fp)) != EOF) {
-      // here we append the data stream c to result.
-      char *tmp;
-      asprintf(&tmp, "%s%c", result, c);
-      free(result);
-      result = tmp;
+    if (!fp) {
+      fprintf(stderr, "Failed to open a shell!");
+      return 1;
     }
-    
+
+    int c; // fgetc returns int, EOF is -1
+    while ((c = fgetc(fp)) != EOF) { putchar(c); } // prints fp int by int
     pclose(fp);
-    return result;
+    return 0;
   }
 }
