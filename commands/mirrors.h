@@ -1,5 +1,9 @@
 char **pkgmirrors() {
   FILE *fp = fopen("/etc/tarp/mirrors", "r");
+  if (!fp) {
+    fprintf(stderr, "/etc/tarp/mirrors not found!");
+    return NULL;
+  }
   char *line = NULL;
   size_t limit = 0; // getline() allocates this for us
   char **mirrors = NULL, **tmp = NULL;
@@ -25,6 +29,10 @@ char **pkgmirrors() {
 
 char **sbomirrors() {
   FILE *fp = fopen("/etc/tarp/mirrors", "r");
+  if (!fp) {
+    fprintf(stderr, "/etc/tarp/mirrors not found!");
+    return NULL;
+  }  
   char *line = NULL;
   size_t limit = 0; // getline() allocates this for us
   char **mirrors = NULL, **tmp = NULL;

@@ -7,12 +7,14 @@
 #include <curl/curl.h>
 #include "commands/help.h" // dont move this one.
 #include "commands/fnv1a.h" // not this one either.
+#include "commands/curleasy.h"
 #include "commands/removepkg.h"
 #include "commands/installpkg.h"
 #include "commands/list.h"
 #include "commands/count.h"
 #include "commands/mirrors.h"
 #include "commands/update.h"
+#include "commands/repoid.h"
 
 int main(int argc, char **argv) {
   if (argc <= 1) {
@@ -23,7 +25,11 @@ int main(int argc, char **argv) {
   else if (strcmp(argv[1], "h") == 0 || strcmp(argv[1], "help") == 0) {
     return help();
   }
-  
+
+  else if (strcmp(argv[1], "ri") == 0 || strcmp(argv[1], "repoid") == 0) {
+    return repoid(argv + 2);
+  }
+
   else if (strcmp(argv[1], "r") == 0 || strcmp(argv[1], "remove") == 0) {
     return removepkg(argc - 2, argv + 2);
   }

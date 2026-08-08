@@ -17,7 +17,7 @@ int update() {
 	    "or more mirrors in /etc/tarp/mirrors.");
     return 1;
   }
-  
+
   for (int i = 0; mirrors[i] != NULL; i++) {
     snprintf(repoid, 9, "%08x", fnv1a(mirrors[i]));
 
@@ -26,7 +26,7 @@ int update() {
 	strncmp(mirrors[i], "ftp://", 6) != 0) {
       fprintf(stderr, "%s is a local repo, running "
 	      "tarp update is unneccessary.\n", repoid);
-      return 1;
+      continue;
     }
 
     asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mirrors[i]));
@@ -39,11 +39,12 @@ int update() {
       if (download(checksum_url, checksum_path) == 1) {
 	fprintf(stderr, "Checksum download of %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
-	fflush(stdout);
 	choice = getchar();
 	int c;
-	while ((c = getchar()) != '\n' && c != EOF); // discard rest of line
-	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto checksum; }
+	if (choice != '\n') {
+	  while ((c = getchar()) != '\n' && c != EOF); // only discard if there's more on the line
+	}
+	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto checksum; }	
       }
       free(checksum_url);
     }
@@ -60,10 +61,11 @@ int update() {
       if (download(signature_url, signature_path) == 1) {
 	fprintf(stderr, "Signature download of %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
-	fflush(stdout);
 	choice = getchar();
 	int c;
-	while ((c = getchar()) != '\n' && c != EOF); // discard rest of line
+	if (choice != '\n') {
+	  while ((c = getchar()) != '\n' && c != EOF); // only discard if there's more on the line
+	}
 	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto signature; }
       }
       free(signature_url);
