@@ -37,6 +37,6 @@ In a way, tarp is similar to AUR helpers like yay and paru, as it's a wrapper ar
 ```
 git clone https://github.com/kapijawastaken/tarp
 cd tarp
-make c
+make
 sudo make install
 ```
