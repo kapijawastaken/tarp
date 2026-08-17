@@ -1,20 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <errno.h>
-#include <curl/curl.h>
-#include <sys/stat.h>
-#include "commands/help.h" // dont move this one.
-#include "commands/fnv1a.h" // not this one either.
-#include "commands/curleasy.h"
+#include "commands/help.h"
 #include "commands/removepkg.h"
 #include "commands/installpkg.h"
 #include "commands/list.h"
 #include "commands/count.h"
-#include "commands/mirrors.h"
 #include "commands/update.h"
 #include "commands/repoid.h"
 

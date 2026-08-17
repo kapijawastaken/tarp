@@ -1,5 +1,5 @@
 tarp:
-	gcc -o tarp ./main.c -lcurl -Wall
+	gcc -o tarp ./main.c ./commands/*.c -lcurl -Wall
 clean:
 	rm tarp
 install:
