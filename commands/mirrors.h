@@ -2,7 +2,6 @@
 #define MIRRORS_H
 
 char **pkgmirrors();
-
 char **sbomirrors();
 
 #endif

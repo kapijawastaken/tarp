@@ -2,4 +2,5 @@
 #define COUNT_H
 
 int count();
+
 #endif
