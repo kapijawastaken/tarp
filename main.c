@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands/help.h"
-#include "commands/removepkg.h"
-#include "commands/installpkg.h"
+#include "commands/shcmd.h"
 #include "commands/list.h"
 #include "commands/count.h"
 #include "commands/update.h"
@@ -23,11 +22,11 @@ int main(int argc, char **argv) {
   }
 
   else if (strcmp(argv[1], "r") == 0 || strcmp(argv[1], "remove") == 0) {
-    return removepkg(argc - 2, argv + 2);
+    return shcmd(r, argc - 2, argv + 2);
   }
 
   else if (strcmp(argv[1], "i") == 0 || strcmp(argv[1], "install") == 0) {
-    return installpkg(argc - 2, argv + 2);
+    return shcmd(i, argc - 2, argv + 2);
   }
 
   else if (strcmp(argv[1], "c") == 0 || strcmp(argv[1], "count") == 0) {
