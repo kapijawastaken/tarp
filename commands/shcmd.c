@@ -6,23 +6,19 @@
 
 int shcmd(enum Mode mode, int argc, char **argv) {
 
-  enum Mode {
-    i,
-    r
-  };
-
+  char *cmd;
+  
   if (argc <= 0) {
     help();
     return 1;
   }
 
-  else if (mode == r) {
-    char *cmd = strdup("removepkg"); /* this needs to be freed, and we cant
-				        free string literals. */
+  if (mode == r) {
+    cmd = "removepkg";
   }
   
   else if (mode == i) {
-    char *cmd = strdup("installpkg"); // same thing as above
+    cmd = "installpkg";
   }
   
   else {
@@ -34,7 +30,9 @@ int shcmd(enum Mode mode, int argc, char **argv) {
   for (int i = 0; i < argc; i++) {
     char *tmp;
     asprintf(&tmp, "%s %s", cmd, argv[i]);
-    free(cmd);
+    if (i > 0) { // because the first iteration points to a string literal
+      free(cmd);
+    }
     cmd = tmp;
   }
   
