@@ -18,16 +18,16 @@ char *tmpdir(char *str) {
 
 int update() {
   char **mirrors = pkgmirrors();
-  char *checksum_path = NULL, *signature_path = NULL;
+  char *checksum_path = nullptr, *signature_path = nullptr;
   char repoid[9];
-  if (mirrors == NULL) {
+  if (mirrors == nullptr) {
     fprintf(stderr, "%s\n",
 	    "You don't have any mirrors set!\n"
 	    "Go and do that by uncommenting one "
 	    "or more mirrors in /etc/tarp/mirrors.");
     return 1;
   }
-  for (int i = 0; mirrors[i] != NULL; i++) {
+  for (int i = 0; mirrors[i] != nullptr; i++) {
     mirrors[i][strcspn(mirrors[i], "\n")] = '\0';
     snprintf(repoid, 9, "%08x", fnv1a(mirrors[i]));
     
@@ -52,7 +52,7 @@ int update() {
       }
     }
     
-    char *checksum_url = NULL;
+    char *checksum_url = nullptr;
     asprintf(&checksum_url, "%sCHECKSUMS.md5", mirrors[i]);
     
   checksum:
@@ -83,7 +83,7 @@ int update() {
       }
     }
 
-    char *signature_url = NULL;
+    char *signature_url = nullptr;
     asprintf(&signature_url, "%sCHECKSUMS.md5.asc", mirrors[i]);
     
   signature:

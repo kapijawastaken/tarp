@@ -6,7 +6,7 @@
 
 int list() {
   struct dirent **entries;
-  int n = scandir("/var/lib/pkgtools/packages", &entries, NULL, alphasort);  
+  int n = scandir("/var/lib/pkgtools/packages", &entries, nullptr, alphasort);  
 
   if (n < 0) {
     fprintf(stderr, "Failed to read /var/lib/pkgtools/packages!\n");

@@ -5,7 +5,7 @@
 
 int count() {
   struct dirent **entries;
-  int n = scandir("/var/lib/pkgtools/packages", &entries, NULL, NULL);
+  int n = scandir("/var/lib/pkgtools/packages", &entries, nullptr, nullptr);
 
   if (n < 0) {
     fprintf(stderr, "Failed to read /var/lib/pkgtools/packages!\n");

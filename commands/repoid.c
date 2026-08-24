@@ -7,18 +7,18 @@
 #include "repoid.h"
 
 int repoid(char **input) {
-  if (input[0] == NULL) {
+  if (input[0] == nullptr) {
     help();
     return 1;
    }
   char *entered = strdup(input[0]);
   char **mirrors = pkgmirrors();
-  if (mirrors == NULL) {
+  if (mirrors == nullptr) {
     fprintf(stderr, "No repos available!\n");
     free(entered);
     return 1;
   }
-  for (int i = 0; mirrors[i] != NULL; i++) {
+  for (int i = 0; mirrors[i] != nullptr; i++) {
     char tmp[9];
     snprintf(tmp, 9, "%08x", fnv1a(mirrors[i]));
     if (strcmp(entered, tmp) == 0) {
