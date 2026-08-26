@@ -2,6 +2,7 @@
 #define UPDATE_H
 
 char *tmpdir(char *str);
-int update();
+int update(bool gpg);
+// true = gpgkey, false = not gpgkey
 
 #endif

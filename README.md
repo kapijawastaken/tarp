@@ -7,7 +7,7 @@ A package manager for Slackware that does everything (in the future), including:
 * removing packages (done)
 * updating the checksums (done)
 * updating the gpg signature (done)
-* updating the gpg key (to do)
+* updating the gpg key (done)
 * installing remote packages (to do)
 * installing SlackBuilds (to do)
 * automatically installing dependencies for packages and SlackBuilds (to do)

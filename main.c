@@ -34,7 +34,11 @@ int main(int argc, char **argv) {
   }
 
   else if (strcmp(argv[1], "u") == 0 || strcmp(argv[1], "update") == 0) {
-    return update();
+    return update(false);
+  }
+  
+  else if (strcmp(argv[1], "ug") == 0 || strcmp(argv[1], "updategpg") == 0) {
+    return update(true);
   }
   
   else if (strcmp(argv[1], "l") == 0 || strcmp(argv[1], "list") == 0) {

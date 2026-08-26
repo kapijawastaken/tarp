@@ -16,9 +16,9 @@ char *tmpdir(char *str) {
   return output;
 }
 
-int update() {
+int update(bool gpg) {
   char **mirrors = pkgmirrors();
-  char *checksum_path = nullptr, *signature_path = nullptr;
+  char *checksum_path = nullptr, *signature_path = nullptr, *gpg_key_path = nullptr;
   char repoid[9];
   if (mirrors == nullptr) {
     fprintf(stderr, "%s\n",
@@ -100,6 +100,39 @@ int update() {
     }
     free(signature_url);
     free(signature_path);
+
+    if (gpg == true) {
+      asprintf(&gpg_key_path, "%s/GPG-KEY", tmpdir(mirrors[i]));
+      if (access(tmpdir(mirrors[i]), W_OK) == -1) {
+	if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	  fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
+	  return 1;
+	}
+	if (mkdir(tmpdir(mirrors[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	  fprintf(stderr, "Failed to create temporary directory %s!\n",
+		  tmpdir(mirrors[i]));
+	  return 1;
+	}
+      }
+      
+      char *gpg_key_url = nullptr;
+      asprintf(&gpg_key_url, "%sGPG-KEY", mirrors[i]);
+      
+    gpg_key:
+      if (download(gpg_key_url, gpg_key_path) == 1) {
+	fprintf(stderr, "GPG key download of %s failed!\n", repoid);
+	printf("Retry? [Y/n] ");
+	int choice = getchar();
+	int c;
+	if (choice != '\n') {
+	  while ((c = getchar()) != '\n' && c != EOF);
+	  // only discard if there's more on the line
+	}
+	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto gpg_key; }
+      }
+      free(gpg_key_url);
+      free(gpg_key_path);
+    }
   }
   return 0;
 }
