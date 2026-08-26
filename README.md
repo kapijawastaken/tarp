@@ -29,7 +29,7 @@ tarp stands for **tar** **p**ackage manager, referencing Slackware packages, whi
 In a way, tarp is similar to AUR helpers like yay and paru, as it's a wrapper around the system package manager but also supports installing SlackBuilds, which are similar to PKGBUILDs.
 
 # Requirements:
-* gcc
+* gcc 15 or above
 * make
 * libcurl
 
