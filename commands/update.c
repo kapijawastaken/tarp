@@ -17,44 +17,44 @@ char *tmpdir(char *str) {
 }
 
 int update(bool gpg) {
-  char **mirrors = pkgmirrors();
+  char **mlist = mirrors(tz);
   char *checksum_path = nullptr, *signature_path = nullptr, *gpg_key_path = nullptr;
   char repoid[9];
-  if (mirrors == nullptr) {
+  if (mlist == nullptr) {
     fprintf(stderr, "%s\n",
 	    "You don't have any mirrors set!\n"
 	    "Go and do that by uncommenting one "
 	    "or more mirrors in /etc/tarp/mirrors.");
     return 1;
   }
-  for (int i = 0; mirrors[i] != nullptr; i++) {
-    mirrors[i][strcspn(mirrors[i], "\n")] = '\0';
-    snprintf(repoid, 9, "%08x", fnv1a(mirrors[i]));
+  for (int i = 0; mlist[i] != nullptr; i++) {
+    mlist[i][strcspn(mlist[i], "\n")] = '\0';
+    snprintf(repoid, 9, "%08x", fnv1a(mlist[i]));
     
-    if (strncmp(mirrors[i], "https://", 8) != 0 &&
-        strncmp(mirrors[i], "http://", 7) != 0 &&
-	strncmp(mirrors[i], "ftp://", 6) != 0) {
+    if (strncmp(mlist[i], "https://", 8) != 0 &&
+        strncmp(mlist[i], "http://", 7) != 0 &&
+	strncmp(mlist[i], "ftp://", 6) != 0) {
       fprintf(stderr, "%s is a local repo, running "
 	      "tarp update is unneccessary.\n", repoid);
       continue;
     }
     
-    asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mirrors[i]));
-    if (access(tmpdir(mirrors[i]), W_OK) == -1) {
+    asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mlist[i]));
+    if (access(tmpdir(mlist[i]), W_OK) == -1) {
       if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
 	fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
 	return 1;
       }
-      if (mkdir(tmpdir(mirrors[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+      if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
 	fprintf(stderr, "Failed to create temporary directory %s!\n",
-		tmpdir(mirrors[i]));
+		tmpdir(mlist[i]));
 	return 1;
       }
     }
     
     char *checksum_url = nullptr;
-    asprintf(&checksum_url, "%sCHECKSUMS.md5", mirrors[i]);
-    
+    asprintf(&checksum_url, "%sCHECKSUMS.md5", mlist[i]);
+
   checksum:
     if (download(checksum_url, checksum_path) == 1) {
       fprintf(stderr, "Checksum download of %s failed!\n", repoid);
@@ -70,22 +70,22 @@ int update(bool gpg) {
     free(checksum_url);
     free(checksum_path);
 
-    asprintf(&signature_path, "%s/CHECKSUMS.md5.asc", tmpdir(mirrors[i]));
-    if (access(tmpdir(mirrors[i]), W_OK) == -1) {
+    asprintf(&signature_path, "%s/CHECKSUMS.md5.asc", tmpdir(mlist[i]));
+    if (access(tmpdir(mlist[i]), W_OK) == -1) {
       if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
 	fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
 	return 1;
       }
-      if (mkdir(tmpdir(mirrors[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+      if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
 	fprintf(stderr, "Failed to create temporary directory %s!\n",
-		tmpdir(mirrors[i]));
+		tmpdir(mlist[i]));
 	return 1;
       }
     }
 
     char *signature_url = nullptr;
-    asprintf(&signature_url, "%sCHECKSUMS.md5.asc", mirrors[i]);
-    
+    asprintf(&signature_url, "%sCHECKSUMS.md5.asc", mlist[i]);
+
   signature:
     if (download(signature_url, signature_path) == 1) {
       fprintf(stderr, "Signature download of %s failed!\n", repoid);
@@ -102,21 +102,21 @@ int update(bool gpg) {
     free(signature_path);
 
     if (gpg == true) {
-      asprintf(&gpg_key_path, "%s/GPG-KEY", tmpdir(mirrors[i]));
-      if (access(tmpdir(mirrors[i]), W_OK) == -1) {
+      asprintf(&gpg_key_path, "%s/GPG-KEY", tmpdir(mlist[i]));
+      if (access(tmpdir(mlist[i]), W_OK) == -1) {
 	if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
 	  fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
 	  return 1;
 	}
-	if (mkdir(tmpdir(mirrors[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
 	  fprintf(stderr, "Failed to create temporary directory %s!\n",
-		  tmpdir(mirrors[i]));
+		  tmpdir(mlist[i]));
 	  return 1;
 	}
       }
-      
+
       char *gpg_key_url = nullptr;
-      asprintf(&gpg_key_url, "%sGPG-KEY", mirrors[i]);
+      asprintf(&gpg_key_url, "%sGPG-KEY", mlist[i]);
       
     gpg_key:
       if (download(gpg_key_url, gpg_key_path) == 1) {

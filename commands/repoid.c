@@ -12,18 +12,18 @@ int repoid(char **input) {
     return 1;
    }
   char *entered = strdup(input[0]);
-  char **mirrors = pkgmirrors();
-  if (mirrors == nullptr) {
+  char **mlist = mirrors(tz);
+  if (mlist == nullptr) {
     fprintf(stderr, "No repos available!\n");
     free(entered);
     return 1;
   }
-  for (int i = 0; mirrors[i] != nullptr; i++) {
+  for (int i = 0; mlist[i] != nullptr; i++) {
     char tmp[9];
-    snprintf(tmp, 9, "%08x", fnv1a(mirrors[i]));
+    snprintf(tmp, 9, "%08x", fnv1a(mlist[i]));
     if (strcmp(entered, tmp) == 0) {
       free(entered);
-      printf("%s", mirrors[i]);
+      printf("%s", mlist[i]);
       return 0;
     }
   }
