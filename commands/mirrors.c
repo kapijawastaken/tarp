@@ -22,7 +22,7 @@ char **mirrors(enum PKG type) {
   }
   char *line = nullptr;
   char **mlist = nullptr;
-  size_t limit = 0; // getline() allocates this for us
+  size_t limit = 128; // reallocs if url exceeds 128 chars
   int count = 0;
   while (getline(&line, &limit, fp) != -1) {
     if (strcmp(line, "[SBo]\n") == 0 && type == sbo) {
