@@ -9,7 +9,7 @@
 #include "fnv1a.h"
 #include "update.h"
 
-char *tmpdir(char *str) {
+static char *tmpdir(char *str) {
   static char output[19]; // "/tmp/tarp/" (10) + 8 hex chars + null = 19
   unsigned int h = fnv1a(str);
   snprintf(output, sizeof(output), "/tmp/tarp/%08x", h);
