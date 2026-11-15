@@ -13,6 +13,7 @@ A package manager for Slackware that will be able to do everything
 * updating the checksums (done)
 * updating the gpg signature (done)
 * updating the gpg key (done)
+* searching for packages (done)
 * installing new packages (like slackpkg install-new)
 * installing remote packages
 * upgrading remote packages
@@ -42,17 +43,27 @@ other languages to make it "easier".
 ## What can this project be compared to?
 In a way, tarp is similar to AUR helpers like yay and paru, as it's a wrapper
 around the system package manager but also supports installing SlackBuilds,
-which are similar to PKGBUILDs.
+which are similar to PKGBUILDs. Also, I'm planning to add a portage-like
+functionality, but for dependencies. As in, you can select what dependencies a package has.
+As well as a portage-like MAKEFLAG/CFLAG etc. system for SlackBuilds.
 
 # Requirements:
-* gcc 15 or above
+* clang or gcc that supports gnu23
 * make
 * libcurl
 
-# Build instructions
+# Build instructions (clang, recommended)
 ```
 git clone https://github.com/kapijawastaken/tarp
 cd tarp
 make
+sudo make install
+```
+
+# Build instructions (gcc)
+```
+git clone https://github.com/kapijawastaken/tarp
+cd tarp
+make gcc
 sudo make install
 ```
