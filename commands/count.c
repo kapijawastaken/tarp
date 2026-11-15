@@ -1,7 +1,9 @@
+#include "count.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <dirent.h>
-#include "count.h"
 
 int count() {
   struct dirent **entries;

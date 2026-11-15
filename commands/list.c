@@ -1,8 +1,10 @@
+#include "list.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include <dirent.h>
-#include "list.h"
 
 int list() {
   struct dirent **entries;

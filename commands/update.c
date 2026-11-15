@@ -1,13 +1,17 @@
+#include "update.h"
+
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include <unistd.h>
-#include <errno.h>
+
 #include <sys/stat.h>
+
 #include "curleasy.h"
-#include "mirrors.h"
 #include "fnv1a.h"
-#include "update.h"
+#include "mirrors.h"
 
 static char *tmpdir(char *str) {
   static char output[19]; // "/tmp/tarp/" (10) + 8 hex chars + null = 19
@@ -16,8 +20,8 @@ static char *tmpdir(char *str) {
   return output;
 }
 
-int update(bool gpg) {
-  char **mlist = mirrors(tz);
+int update(enum update_type type) {
+  char **mlist = mirrors(TZ);
   char *checksum_path = nullptr, *signature_path = nullptr, *gpg_key_path = nullptr;
   char repoid[9];
   if (mlist == nullptr) {
@@ -101,7 +105,7 @@ int update(bool gpg) {
     free(signature_url);
     free(signature_path);
 
-    if (gpg == true) {
+    if (type == GPG) {
       asprintf(&gpg_key_path, "%s/GPG-KEY", tmpdir(mlist[i]));
       if (access(tmpdir(mlist[i]), W_OK) == -1) {
 	if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx

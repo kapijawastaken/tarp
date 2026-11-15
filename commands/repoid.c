@@ -1,10 +1,13 @@
+#include "repoid.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "fnv1a.h"
 #include "help.h"
 #include "mirrors.h"
-#include "fnv1a.h"
-#include "repoid.h"
+
 
 int repoid(char **input) {
   if (input[0] == nullptr) {
@@ -12,7 +15,7 @@ int repoid(char **input) {
     return 1;
    }
   char *entered = strdup(input[0]);
-  char **mlist = mirrors(tz);
+  char **mlist = mirrors(TZ);
   if (mlist == nullptr) {
     fprintf(stderr, "No repos available!\n");
     free(entered);

@@ -1,8 +1,11 @@
+#include "shcmd.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "help.h"
-#include "shcmd.h"
+
 
 int shcmd(enum Mode mode, int argc, char **argv) {
 

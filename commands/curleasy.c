@@ -1,6 +1,9 @@
-#include <stdio.h>
-#include <curl/curl.h>
 #include "curleasy.h"
+
+#include <stdio.h>
+
+#include <curl/curl.h>
+
 
 int download(char *url, char *outfilename) {
   // 0 = success, 1 = failure
@@ -11,7 +14,6 @@ int download(char *url, char *outfilename) {
   if (curl) {
     fp = fopen(outfilename, "w");
     curl_easy_setopt(curl, CURLOPT_URL, url);
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, nullptr);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     res = curl_easy_perform(curl);

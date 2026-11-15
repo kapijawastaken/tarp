@@ -2,8 +2,8 @@
 #define MIRRORS_H
 
 enum PKG {
-  tz,
-  sbo
+  TZ,
+  SBO
 };
 // tz = tgz, txz, etc
 

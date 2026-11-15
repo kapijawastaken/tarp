@@ -1,7 +1,8 @@
+#include "mirrors.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "mirrors.h"
 
 static int append(char ***mlist, int *count, char *line) {
   // using pointers here bc we dont want copies of the original vars
@@ -25,16 +26,16 @@ char **mirrors(enum PKG type) {
   size_t limit = 128; // reallocs if url exceeds 128 chars
   int count = 0;
   while (getline(&line, &limit, fp) != -1) {
-    if (strcmp(line, "[SBo]\n") == 0 && type == sbo) {
+    if (strcmp(line, "[SBo]\n") == 0 && type == SBO) {
       break;
     }
-    else if (strcmp(line, "[SBo]\n") == 0 && type == tz) {
+    else if (strcmp(line, "[SBo]\n") == 0 && type == TZ) {
       fclose(fp); free(line); return mlist;
     }
     
     if (line[0] != '#' &&
 	line[0] != '\n' &&
-	type == tz &&
+	type == TZ &&
 	strcmp(line, "[Packages]\n") != 0) {
       if (append(&mlist, &count, line) != 0) {
 	fclose(fp); free(line);
@@ -44,7 +45,7 @@ char **mirrors(enum PKG type) {
     }
   }
   
-  if (type == sbo) {
+  if (type == SBO) {
     // this keeps going from where the getline above stopped
     while (getline(&line, &limit, fp) != -1) {
       if (line[0] != '#' && line[0] != '\n') {

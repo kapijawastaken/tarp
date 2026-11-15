@@ -1,5 +1,6 @@
-#include <stdio.h>
 #include "help.h"
+
+#include <stdio.h>
 
 int help() {
   char *helptext = "Usage: tarp <command>\n" 

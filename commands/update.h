@@ -1,7 +1,11 @@
 #ifndef UPDATE_H
 #define UPDATE_H
 
-int update(bool gpg);
-// true = gpgkey, false = not gpgkey
+enum update_type {
+  NORMAL,
+  GPG
+};
+
+int update(enum update_type type);
 
 #endif
