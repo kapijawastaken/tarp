@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-#include "commands/help.h"
-#include "commands/shcmd.h"
-#include "commands/list.h"
+
 #include "commands/count.h"
-#include "commands/update.h"
+#include "commands/help.h"
+#include "commands/list.h"
 #include "commands/repoid.h"
+#include "commands/search.h"
+#include "commands/shcmd.h"
+#include "commands/update.h"
 
 int main(int argc, char **argv) {
   if (argc <= 1) {
@@ -21,6 +23,9 @@ int main(int argc, char **argv) {
     return repoid(argv + 2);
   }
 
+  else if (strcmp(argv[1], "s") == 0 || strcmp(argv[1], "search") == 0) {
+    return search(argv + 2);
+  }
   else if (strcmp(argv[1], "r") == 0 || strcmp(argv[1], "remove") == 0) {
     return shcmd(r, argc - 2, argv + 2);
   }
@@ -34,11 +39,11 @@ int main(int argc, char **argv) {
   }
 
   else if (strcmp(argv[1], "u") == 0 || strcmp(argv[1], "update") == 0) {
-    return update(false);
+    return update(NORMAL);
   }
   
   else if (strcmp(argv[1], "ug") == 0 || strcmp(argv[1], "updategpg") == 0) {
-    return update(true);
+    return update(GPG);
   }
   
   else if (strcmp(argv[1], "l") == 0 || strcmp(argv[1], "list") == 0) {
