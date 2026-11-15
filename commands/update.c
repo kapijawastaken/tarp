@@ -60,7 +60,7 @@ int update(enum update_type type) {
       asprintf(&checksum_url, "%sCHECKSUMS.md5", mlist[i]);
 
     checksum:
-      printf("Downloading checksum...");
+      printf("Downloading checksum for repo %s...", repoid);
       fflush(stdout);  // prints it immediately, needed because no \n
       if (download(checksum_url, checksum_path) == 1) {
 	fprintf(stderr, "Checksum download of %s failed!\n", repoid);
@@ -96,7 +96,7 @@ int update(enum update_type type) {
       asprintf(&signature_url, "%sCHECKSUMS.md5.asc", mlist[i]);
 
     signature:
-      printf("Downloading signature...");
+      printf("Downloading signature for repo %s...", repoid);
       fflush(stdout);  // prints it immediately, needed because no \n
       if (download(signature_url, signature_path) == 1) {
 	fprintf(stderr, "Signature download of %s failed!\n", repoid);
@@ -133,7 +133,7 @@ int update(enum update_type type) {
       asprintf(&gpg_key_url, "%sGPG-KEY", mlist[i]);
       
     gpg_key:
-    printf("Downloading GPG key...");
+      printf("Downloading GPG key for repo %s...", repoid);
     fflush(stdout);  // prints it immediately, needed because no \n
       if (download(gpg_key_url, gpg_key_path) == 1) {
 	fprintf(stderr, "GPG key download of %s failed!\n", repoid);
