@@ -5,10 +5,12 @@
 
 #include <unistd.h>
 
-#include "mirrors.h"
 #include "fnv1a.h"
+#include "help.h"
+#include "mirrors.h"
 
 int search(char **search_arg) {
+  if (search_arg[0] == nullptr) { help(); return 1; }
   char *entered = strdup(search_arg[0]);
   char **mlist = mirrors(TZ);
   char *checksum_path = nullptr; // we'll read through this
