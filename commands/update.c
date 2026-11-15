@@ -42,69 +42,79 @@ int update(enum update_type type) {
 	      "tarp update is unneccessary.\n", repoid);
       continue;
     }
+    if (type == NORMAL) {
+      asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mlist[i]));
+      if (access(tmpdir(mlist[i]), W_OK) == -1) {
+	if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	  fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
+	  return 1;
+	}
+	if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	  fprintf(stderr, "Failed to create temporary directory %s!\n",
+		  tmpdir(mlist[i]));
+	  return 1;
+	}
+      }
     
-    asprintf(&checksum_path, "%s/CHECKSUMS.md5", tmpdir(mlist[i]));
-    if (access(tmpdir(mlist[i]), W_OK) == -1) {
-      if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
-	fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
-	return 1;
+      char *checksum_url = nullptr;
+      asprintf(&checksum_url, "%sCHECKSUMS.md5", mlist[i]);
+
+    checksum:
+      printf("Downloading checksum...");
+      fflush(stdout);  // prints it immediately, needed because no \n
+      if (download(checksum_url, checksum_path) == 1) {
+	fprintf(stderr, "Checksum download of %s failed!\n", repoid);
+	printf("Retry? [Y/n] ");
+	int choice = getchar();
+	int c;
+	if (choice != '\n') {
+	  while ((c = getchar()) != '\n' && c != EOF);
+	  // only discard if there's more on the line
+	}
+	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto checksum; }
       }
-      if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
-	fprintf(stderr, "Failed to create temporary directory %s!\n",
-		tmpdir(mlist[i]));
-	return 1;
+      else {
+	printf("done\n");
       }
+      free(checksum_url);
+      free(checksum_path);
+
+      asprintf(&signature_path, "%s/CHECKSUMS.md5.asc", tmpdir(mlist[i]));
+      if (access(tmpdir(mlist[i]), W_OK) == -1) {
+	if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	  fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
+	  return 1;
+	}
+	if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
+	  fprintf(stderr, "Failed to create temporary directory %s!\n",
+		  tmpdir(mlist[i]));
+	  return 1;
+	}
+      }
+
+      char *signature_url = nullptr;
+      asprintf(&signature_url, "%sCHECKSUMS.md5.asc", mlist[i]);
+
+    signature:
+      printf("Downloading signature...");
+      fflush(stdout);  // prints it immediately, needed because no \n
+      if (download(signature_url, signature_path) == 1) {
+	fprintf(stderr, "Signature download of %s failed!\n", repoid);
+	printf("Retry? [Y/n] ");
+	int choice = getchar();
+	int c;
+	if (choice != '\n') {
+	  while ((c = getchar()) != '\n' && c != EOF);
+	  // only discard if there's more on the line
+	}
+	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto signature; }
+      }
+      else {
+	printf("done\n");
+      }
+      free(signature_url);
+      free(signature_path);
     }
-    
-    char *checksum_url = nullptr;
-    asprintf(&checksum_url, "%sCHECKSUMS.md5", mlist[i]);
-
-  checksum:
-    if (download(checksum_url, checksum_path) == 1) {
-      fprintf(stderr, "Checksum download of %s failed!\n", repoid);
-      printf("Retry? [Y/n] ");
-      int choice = getchar();
-      int c;
-      if (choice != '\n') {
-	while ((c = getchar()) != '\n' && c != EOF);
-	// only discard if there's more on the line
-      }
-      if (choice == 'y' || choice == 'Y' || choice == '\n') { goto checksum; }
-    }
-    free(checksum_url);
-    free(checksum_path);
-
-    asprintf(&signature_path, "%s/CHECKSUMS.md5.asc", tmpdir(mlist[i]));
-    if (access(tmpdir(mlist[i]), W_OK) == -1) {
-      if (mkdir("/tmp/tarp", 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
-	fprintf(stderr, "Failed to create temporary directory /tmp/tarp!\n");
-	return 1;
-      }
-      if (mkdir(tmpdir(mlist[i]), 0755) == -1 && errno != EEXIST) { // rwx,rx,rx
-	fprintf(stderr, "Failed to create temporary directory %s!\n",
-		tmpdir(mlist[i]));
-	return 1;
-      }
-    }
-
-    char *signature_url = nullptr;
-    asprintf(&signature_url, "%sCHECKSUMS.md5.asc", mlist[i]);
-
-  signature:
-    if (download(signature_url, signature_path) == 1) {
-      fprintf(stderr, "Signature download of %s failed!\n", repoid);
-      printf("Retry? [Y/n] ");
-      int choice = getchar();
-      int c;
-      if (choice != '\n') {
-	while ((c = getchar()) != '\n' && c != EOF);
-	// only discard if there's more on the line
-      }
-      if (choice == 'y' || choice == 'Y' || choice == '\n') { goto signature; }
-    }
-    free(signature_url);
-    free(signature_path);
-
     if (type == GPG) {
       asprintf(&gpg_key_path, "%s/GPG-KEY", tmpdir(mlist[i]));
       if (access(tmpdir(mlist[i]), W_OK) == -1) {
@@ -123,6 +133,8 @@ int update(enum update_type type) {
       asprintf(&gpg_key_url, "%sGPG-KEY", mlist[i]);
       
     gpg_key:
+    printf("Downloading GPG key...");
+    fflush(stdout);  // prints it immediately, needed because no \n
       if (download(gpg_key_url, gpg_key_path) == 1) {
 	fprintf(stderr, "GPG key download of %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
@@ -133,6 +145,9 @@ int update(enum update_type type) {
 	  // only discard if there's more on the line
 	}
 	if (choice == 'y' || choice == 'Y' || choice == '\n') { goto gpg_key; }
+      }
+      else {
+	printf("done\n");
       }
       free(gpg_key_url);
       free(gpg_key_path);
