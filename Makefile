@@ -1,5 +1,7 @@
-tarp:
-	gcc -o tarp ./main.c ./commands/*.c -lcurl -Wall
+clang:
+	clang -std=gnu23 -o tarp ./main.c ./commands/*.c -lcurl -Wall -Wextra -Wpedantic
+gcc:
+	gcc -std=gnu23 -o tarp ./main.c ./commands/*.c -lcurl -Wall -Wextra -Wpedantic
 clean:
 	rm tarp
 install:
