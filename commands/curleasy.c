@@ -4,15 +4,19 @@
 
 #include <curl/curl.h>
 
-
 int download(char *url, char *outfilename) {
   // 0 = success, 1 = failure
   CURL *curl;
   FILE *fp;
   CURLcode res;
+
   curl = curl_easy_init();
   if (curl) {
     fp = fopen(outfilename, "w");
+    if (!fp) {
+      fprintf(stderr, "\nFailed to create %s!\n", outfilename);
+      return 1;
+    }
     curl_easy_setopt(curl, CURLOPT_URL, url);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);

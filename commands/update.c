@@ -63,7 +63,7 @@ int update(enum update_type type) {
       printf("Downloading checksum for repo %s...", repoid);
       fflush(stdout);  // prints it immediately, needed because no \n
       if (download(checksum_url, checksum_path) == 1) {
-	fprintf(stderr, "Checksum download of %s failed!\n", repoid);
+	fprintf(stderr, "Checksum download for repo %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
 	int choice = getchar();
 	int c;
@@ -99,7 +99,7 @@ int update(enum update_type type) {
       printf("Downloading signature for repo %s...", repoid);
       fflush(stdout);  // prints it immediately, needed because no \n
       if (download(signature_url, signature_path) == 1) {
-	fprintf(stderr, "Signature download of %s failed!\n", repoid);
+	fprintf(stderr, "Signature download for repo %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
 	int choice = getchar();
 	int c;
@@ -136,7 +136,7 @@ int update(enum update_type type) {
       printf("Downloading GPG key for repo %s...", repoid);
     fflush(stdout);  // prints it immediately, needed because no \n
       if (download(gpg_key_url, gpg_key_path) == 1) {
-	fprintf(stderr, "GPG key download of %s failed!\n", repoid);
+	fprintf(stderr, "GPG key download for repo %s failed!\n", repoid);
 	printf("Retry? [Y/n] ");
 	int choice = getchar();
 	int c;
