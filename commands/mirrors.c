@@ -4,16 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-static int append(char ***mlist, int *count, char *line) {
-  // using pointers here bc we dont want copies of the original vars
-  char **tmp = realloc(*mlist, sizeof(char *) * (*count + 2));
-  if (tmp == nullptr) { return 1; }
-  *mlist = tmp;
-
-  (*mlist)[(*count)++] = strdup(line);
-  // operator precedence is weird.
-  return 0;
-}
+#define MAX_MIRRORS 32
+#define MAX_MIRRORS_LEN 128
 
 char **mirrors(enum PKG type) {
   FILE *fp = fopen("/etc/tarp/mirrors", "r");
@@ -21,47 +13,64 @@ char **mirrors(enum PKG type) {
     fprintf(stderr, "/etc/tarp/mirrors not found!");
     return nullptr;
   }
-  char *line = nullptr;
-  char **mlist = nullptr;
-  size_t limit = 128; // reallocs if url exceeds 128 chars
-  int count = 0;
-  while (getline(&line, &limit, fp) != -1) {
-    if (strcmp(line, "[SBo]\n") == 0 && type == SBO) {
-      break;
-    }
-    else if (strcmp(line, "[SBo]\n") == 0 && type == TZ) {
-      fclose(fp); free(line); return mlist;
-    }
-    
-    if (line[0] != '#' &&
-	line[0] != '\n' &&
-	type == TZ &&
-	strcmp(line, "[Packages]\n") != 0) {
-      if (append(&mlist, &count, line) != 0) {
-	fclose(fp); free(line);
-	if (mlist != nullptr) { mlist[count] = nullptr; }
-	return mlist;
-      }
-    }
+
+  char **mirrors_arr = calloc(MAX_MIRRORS, sizeof(char *));
+  if (!mirrors_arr) {
+    fclose(fp);
+    return nullptr;
   }
-  
-  if (type == SBO) {
-    // this keeps going from where the getline above stopped
-    while (getline(&line, &limit, fp) != -1) {
-      if (line[0] != '#' && line[0] != '\n') {
-	if (append(&mlist, &count, line) != 0) {
-	  fclose(fp); free(line);
-	  if (mlist != nullptr) { mlist[count] = nullptr; }
-	  return mlist;
+
+  for (int i = 0; i < MAX_MIRRORS;) {
+    char mirror[MAX_MIRRORS_LEN];
+    if (fgets(mirror, MAX_MIRRORS_LEN, fp) == nullptr) {
+      fclose(fp);
+      return mirrors_arr;
+    }
+
+    if (strcmp(mirror, "[SBo]\n") == 0 && type == SBO) {
+      break; // skips down to the SBO section
+    }
+
+    if (strcmp(mirror, "[SBo]\n") == 0 && type == TZ) {
+      // when there are no package mirrors
+      fclose(fp);
+      return mirrors_arr;
+    }
+
+    if (mirror[0] != '#' &&
+        mirror[0] != '\n' &&
+        type == TZ &&
+        strcmp(mirror, "[Packages]\n") != 0) {
+      mirrors_arr[i] = strdup(mirror);
+
+      if (!mirrors_arr[i]) {
+	for (int i = 0; i < MAX_MIRRORS && mirrors_arr[i]; i++) {
+	  free(mirrors_arr[i]);
 	}
+	free(mirrors_arr);
+        fclose(fp);
+        return nullptr;
       }
+      i++;
     }
   }
-  
-  fclose(fp);
-  free(line);
-  if (mlist != nullptr) {
-    mlist[count] = nullptr;
+
+  if (type == SBO) {
+    char mirror[MAX_MIRRORS_LEN];
+    for (int i = 0; i < MAX_MIRRORS;) {
+      if (fgets(mirror, MAX_MIRRORS_LEN, fp) == nullptr) {
+	break;
+      }
+
+      if (mirror[0] != '#' && mirror[0] != '\n') {
+	mirrors_arr[i] = strdup(mirror);
+	i++;
+      }
+    }
+
+    fclose(fp);
+    return mirrors_arr;
   }
-  return mlist;
+  fclose(fp);
+  return mirrors_arr;
 }
